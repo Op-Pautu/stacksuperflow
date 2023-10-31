@@ -7,33 +7,33 @@ import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
 
 const questions = [
-  // {
-  //   _id: 1,
-  //   title:
-  //     "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
-  //   tags: [
-  //     { _id: 1, name: "python" },
-  //     { _id: 2, name: "sql" },
-  //   ],
-  //   author: "John Doe",
-  //   upvotes: 10,
-  //   views: 100,
-  //   answers: 2,
-  //   createdAt: "2021-09-01T12:00:00.000Z",
-  // },
-  // {
-  //   _id: 2,
-  //   title: "Redux Toolkit Not Updating State as Expected",
-  //   tags: [
-  //     { _id: 1, name: "react" },
-  //     { _id: 2, name: "redux" },
-  //   ],
-  //   author: "Joe Smith",
-  //   upvotes: 15,
-  //   views: 150,
-  //   answers: 5,
-  //   createdAt: "2021-09-03T12:00:00.000Z",
-  // },
+  {
+    _id: 1,
+    title:
+      "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
+    tags: [
+      { _id: 1, name: "python" },
+      { _id: 2, name: "sql" },
+    ],
+    author: "John Doe",
+    upvotes: 10,
+    views: 100,
+    answers: 2,
+    createdAt: "2021-09-01T12:00:00.000Z",
+  },
+  {
+    _id: 2,
+    title: "Redux Toolkit Not Updating State as Expected",
+    tags: [
+      { _id: 1, name: "react" },
+      { _id: 2, name: "redux" },
+    ],
+    author: "Joe Smith",
+    upvotes: 15,
+    views: 150,
+    answers: 5,
+    createdAt: "2021-09-03T12:00:00.000Z",
+  },
 ];
 
 export default function Home() {
