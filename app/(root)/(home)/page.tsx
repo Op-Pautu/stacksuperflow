@@ -1,9 +1,40 @@
 import HomeFilters from "@/components/home/HomeFilters";
 import Filter from "@/components/shared/Filter";
+import NoResult from "@/components/shared/NoResult";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
+
+const questions = [
+  // {
+  //   _id: 1,
+  //   title:
+  //     "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
+  //   tags: [
+  //     { _id: 1, name: "python" },
+  //     { _id: 2, name: "sql" },
+  //   ],
+  //   author: "John Doe",
+  //   upvotes: 10,
+  //   views: 100,
+  //   answers: 2,
+  //   createdAt: "2021-09-01T12:00:00.000Z",
+  // },
+  // {
+  //   _id: 2,
+  //   title: "Redux Toolkit Not Updating State as Expected",
+  //   tags: [
+  //     { _id: 1, name: "react" },
+  //     { _id: 2, name: "redux" },
+  //   ],
+  //   author: "Joe Smith",
+  //   upvotes: 15,
+  //   views: 150,
+  //   answers: 5,
+  //   createdAt: "2021-09-03T12:00:00.000Z",
+  // },
+];
 
 export default function Home() {
   return (
@@ -31,6 +62,20 @@ export default function Home() {
         />
       </div>
       <HomeFilters />
+      <div className="mt-10 flex w-full flex-col gap-6">
+        {questions.length > 0 ? (
+          questions.map((question) => "question")
+        ) : (
+          <NoResult
+            title="There’s no question to show"
+            description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
+          discussion. our query could be the next big thing others learn from. Get
+          involved!"
+            link="/ask-questions"
+            linkTitle="Ask a Question"
+          />
+        )}
+      </div>
     </>
   );
 }
