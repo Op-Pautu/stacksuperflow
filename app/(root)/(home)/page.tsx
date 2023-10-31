@@ -1,3 +1,4 @@
+import QuestionCard from "@/components/cards/QuestionCard";
 import HomeFilters from "@/components/home/HomeFilters";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
@@ -8,31 +9,39 @@ import Link from "next/link";
 
 const questions = [
   {
-    _id: 1,
+    _id: "1",
     title:
       "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
     tags: [
-      { _id: 1, name: "python" },
-      { _id: 2, name: "sql" },
+      { _id: "1", name: "python" },
+      { _id: "2", name: "sql" },
     ],
-    author: "John Doe",
-    upvotes: 10,
+    author: {
+      _id: "1",
+      name: "John Doe",
+      picture: "john-doe.jpg",
+    },
+    upvotes: 10000000,
     views: 100,
-    answers: 2,
-    createdAt: "2021-09-01T12:00:00.000Z",
+    answers: [],
+    createdAt: new Date("2023-10-28T12:00:00.000Z"),
   },
   {
-    _id: 2,
+    _id: "2",
     title: "Redux Toolkit Not Updating State as Expected",
     tags: [
-      { _id: 1, name: "react" },
-      { _id: 2, name: "redux" },
+      { _id: "3", name: "react" },
+      { _id: "4", name: "redux" },
     ],
-    author: "Joe Smith",
+    author: {
+      _id: "2",
+      name: "Joe Schmoe",
+      picture: "joe-schmoe.jpg",
+    },
     upvotes: 15,
     views: 150,
-    answers: 5,
-    createdAt: "2021-09-03T12:00:00.000Z",
+    answers: [],
+    createdAt: new Date("2023-09-03T12:00:00.000Z"),
   },
 ];
 
@@ -64,7 +73,19 @@ export default function Home() {
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
         {questions.length > 0 ? (
-          questions.map((question) => "question")
+          questions.map((question) => (
+            <QuestionCard
+              key={question._id}
+              _id={question._id}
+              title={question.title}
+              tags={question.tags}
+              author={question.author}
+              upvotes={question.upvotes}
+              views={question.views}
+              answers={question.answers}
+              createdAt={question.createdAt}
+            />
+          ))
         ) : (
           <NoResult
             title="There’s no question to show"
