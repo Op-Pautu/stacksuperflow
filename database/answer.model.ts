@@ -1,4 +1,3 @@
-import { answerSchema } from '@/lib/validations'
 import { Schema, models, model, Document } from 'mongoose'
 
 export interface IAnswer extends Document {
