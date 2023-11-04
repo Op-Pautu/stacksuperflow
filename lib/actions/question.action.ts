@@ -74,7 +74,6 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
     try {
         connectToDatabase()
         const { questionId, userId, hasUpvoted, hasDownvoted, path } = params;
-
         let updateQuery = {}
 
         if (hasUpvoted) {
@@ -82,7 +81,7 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
         } else if (hasDownvoted) {
             updateQuery = {
                 $pull: { downvotes: userId },
-                $push: { upvotes: userId }
+                $push: { upvotes: userId },
             }
         } else {
             updateQuery = { $addToSet: { upvotes: userId } }
@@ -95,6 +94,7 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
         }
 
         // Increment author's reputation by +10 for upvoting a question
+
         revalidatePath(path)
     } catch (error) {
         console.log(error)
