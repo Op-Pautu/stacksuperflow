@@ -8,7 +8,7 @@ import { getQuestionByTagId } from "@/lib/actions/tag.action";
 import { URLProps } from "@/types";
 import React from "react";
 
-const Page = ({ params, searchParams }: URLProps) => {
+const Page = async ({ params, searchParams }: URLProps) => {
   const result = await getQuestionByTagId({
     tagId: params.id,
     page: 1,
