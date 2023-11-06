@@ -55,3 +55,15 @@ export const formatAndDivideNumber = (number: number): string => {
 
   return `${formattedNumber}${suffix}`;
 };
+
+
+export const getJoinedDate = (date: Date): string => {
+  // Get the month and year components from the date
+  const month = date.toLocaleString('default', { month: 'long' });
+  const year = date.getFullYear();
+
+  // Join the month and year to form the joined date
+  const joinedDate = `${month} ${year}`;
+
+  return joinedDate;
+}
