@@ -2,20 +2,9 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import RenderTag from "./RenderTag";
+import { getHotQuestions } from "@/lib/actions/question.action";
 
-const RightSidebar = () => {
-  const hotQuestions = [
-    {
-      _id: "1",
-      title:
-        "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
-    },
-    { _id: "2", title: "How do I use express as a custom server in NextJS?" },
-    { _id: "3", title: "Async/Await Function Not Handling Errors Properly" },
-    { _id: "4", title: "Redux Toolkit Not Updating State as Expected" },
-    { _id: "5", title: "Can I get the course for free?" },
-  ];
-
+const RightSidebar = async () => {
   const popularTags = [
     { _id: "1", name: "javascript", totalQuestions: 5 },
     { _id: "2", name: "react", totalQuestions: 5 },
@@ -24,6 +13,7 @@ const RightSidebar = () => {
     { _id: "5", name: "redux", totalQuestions: 10 },
   ];
 
+  const hotQuestions = await getHotQuestions();
   return (
     <section
       className="background-light900_dark200 light-border custom-scrollbar sticky right-0 top-0 flex h-screen
@@ -35,7 +25,7 @@ const RightSidebar = () => {
         <div className="mt-7 flex w-full flex-col gap-[30px]">
           {hotQuestions.map((question) => (
             <Link
-              href={`/questions/${question._id}`}
+              href={`/question/${question._id}`}
               key={question._id}
               className="flex cursor-pointer items-center justify-between gap-7"
             >
