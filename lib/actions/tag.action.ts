@@ -64,9 +64,9 @@ export async function getAllTags(params: GetAllTagsParams) {
         const totalTags = await Tag.countDocuments(query)
 
         const tags = await Tag.find(query)
+            .sort(sortOptions)
             .skip(skipAmount)
             .limit(pageSize)
-            .sort(sortOptions)
 
         const isNext = totalTags > skipAmount + tags.length
 
@@ -94,9 +94,9 @@ export async function getQuestionByTagId(params: GetQuestionsByTagIdParams) {
                 ? { title: { $regex: searchQuery, $options: 'i' } }
                 : {},
             options: {
+                sort: { createdAt: -1 },
                 skip: skipAmount,
-                limit: pageSize + 1, // +1 to check if there is next page
-                sort: { createdAt: -1 }
+                limit: pageSize + 1 // +1 to check if there is next page
             },
             populate: [
                 { path: 'tags', model: Tag, select: '_id name' },
