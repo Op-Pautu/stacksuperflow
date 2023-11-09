@@ -82,8 +82,9 @@ export async function getAllTags(params: GetAllTagsParams) {
 export async function getQuestionByTagId(params: GetQuestionsByTagIdParams) {
     try {
         connectToDatabase()
-        const { tagId, searchQuery } = params;
+        const { tagId, searchQuery, page = 1, pageSize = 10 } = params;
 
+        const skipAmount = (page - 1) * pageSize
         const tagFilter: FilterQuery<ITag> = { _id: tagId }
 
         const tag = await Tag.findOne(tagFilter).populate({
@@ -93,6 +94,8 @@ export async function getQuestionByTagId(params: GetQuestionsByTagIdParams) {
                 ? { title: { $regex: searchQuery, $options: 'i' } }
                 : {},
             options: {
+                skip: skipAmount,
+                limit: pageSize + 1, // +1 to check if there is next page
                 sort: { createdAt: -1 }
             },
             populate: [
@@ -105,9 +108,11 @@ export async function getQuestionByTagId(params: GetQuestionsByTagIdParams) {
             throw new Error('Tag not found')
         }
 
+        const isNext = tag.questions.length > pageSize
+
         const questions = tag.questions
 
-        return { tagTitle: tag.name, questions }
+        return { tagTitle: tag.name, questions, isNext }
     } catch (error) {
         console.log(error)
         throw error
