@@ -88,9 +88,21 @@ export async function createQuestion(params: CreateQuestionParams) {
             $push: { tags: { $each: tagDocuments } }
         })
 
+        // Create an interaction record for the user's ask_question action
+        await Interaction.create({
+            user: author,
+            action: "ask_question",
+            question: question._id,
+            tags: tagDocuments
+        })
+
+        // Increment author's reputation by +5 for creating a question
+        await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } })
+
         revalidatePath(path)
     } catch (error) {
-
+        console.log(error)
+        throw error
     }
 }
 
@@ -133,7 +145,15 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
             throw new Error("Question not found")
         }
 
-        // Increment author's reputation by +10 for upvoting a question
+        // Increment author's reputation by +1/-1 for upvoting/revoking an upvote to the question
+        await User.findByIdAndUpdate(userId, {
+            $inc: { reputation: hasUpvoted ? -1 : 1 }
+        })
+
+        // Increment author's reputation by +10/-10 for receiving an upvote/downvote to the question
+        await User.findByIdAndUpdate(question.author, {
+            $inc: { reputation: hasUpvoted ? -10 : 10 }
+        })
 
         revalidatePath(path)
     } catch (error) {
