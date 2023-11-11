@@ -77,12 +77,19 @@ const Answer = ({ question, questionId, authorId }: AnswerProps) => {
       );
 
       const aiAnswer = await response.json();
-      alert(aiAnswer.reply);
+
+      // Convert plain text to HTML format
+      const formattedAnswer = aiAnswer.reply.replace(/\n/g, "<br/>");
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent(formattedAnswer);
+      }
+
+      // Toast...
     } catch (error) {
       console.log(error);
-      throw error;
     } finally {
-      setIsSubmitting(false);
+      setIsSubmittingAI(false);
     }
   };
 
@@ -96,14 +103,20 @@ const Answer = ({ question, questionId, authorId }: AnswerProps) => {
           className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500"
           onClick={generateAIAnswer}
         >
-          <Image
-            src="/assets/icons/stars.svg"
-            alt="star icon"
-            width={12}
-            height={12}
-            className="object-contain"
-          />
-          Generate an AI Answer
+          {isSubmittingAI ? (
+            <>Generating...</>
+          ) : (
+            <>
+              <Image
+                src="/assets/icons/stars.svg"
+                alt="star icon"
+                width={12}
+                height={12}
+                className="object-contain"
+              />
+              Generate an AI Answer
+            </>
+          )}
         </Button>
       </div>
       <Form {...form}>
