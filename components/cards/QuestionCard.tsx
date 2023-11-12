@@ -8,7 +8,6 @@ import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface QuestionCardProps {
   _id: string;
-  clerkId?: string;
   title: string;
   tags: {
     _id: string;
@@ -18,12 +17,13 @@ interface QuestionCardProps {
     _id: string;
     name: string;
     picture: string;
-    clerkId?: string;
+    clerkId: string;
   };
   upvotes: string[];
   views: number;
   answers: Array<object>;
   createdAt: Date;
+  clerkId?: string | null;
 }
 
 const QuestionCard = ({
